@@ -1,9 +1,17 @@
-.grid-container {
+.content {
     width: 100%;
     display: flex;
     flex-direction: column; /* Stack rows vertically */
     align-items: center;    /* Center them horizontally */
     justify-content: center; /* Center them vertically (if container has height) */
+}
+
+.content > * {
+    margin-top: 20px;
+}
+
+.pathfinder-selector{
+    display: flex;
 }
 
 .row{

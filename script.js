@@ -17,13 +17,21 @@ let start_points = [0,0]
 let end_points = [0,0]
 let drag_start_point = [0,0]
 
-function create_grid(_columns = columns, _rows = rows){
+function create_grid(){
     const container = document.getElementById('grid-container')
+    container.innerHTML = ""
+    const _columns = document.getElementById("columns").value
+    const _rows = document.getElementById("rows").value
 
-    for (let y = 0; y < _rows; y++) {
+    if (_columns >= 1) columns = _columns
+    if (_rows >= 1) rows = _rows
+    generate_start_and_end_points()
+
+    console.log(_columns,_rows)
+    for (let y = 0; y < rows; y++) {
         const row = document.createElement('div');
         row.classList.add('row')
-        for( let x = 0; x < _columns; x++){
+        for( let x = 0; x < columns; x++){
             const cell = document.createElement('div');
             cell.classList.add('cell');
             let id = x.toString() + SEPARATOR + y.toString()
@@ -42,6 +50,13 @@ function create_grid(_columns = columns, _rows = rows){
         }
         container.appendChild(row)
     }
+}
+
+function show_default_values(){
+    const _columns = document.getElementById("columns")
+    _columns.value = columns
+    const _rows = document.getElementById("rows")
+    _rows.value = rows
 }
 
 
@@ -119,5 +134,6 @@ window.addEventListener('mouseup', (event) => {
         mouse_released_in_grid(event);
     }
 });
-generate_start_and_end_points()
+//generate_start_and_end_points()
 create_grid()
+show_default_values()
