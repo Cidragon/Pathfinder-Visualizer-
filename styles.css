@@ -1,0 +1,28 @@
+.grid-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    align-items: center;    /* Center them horizontally */
+    justify-content: center; /* Center them vertically (if container has height) */
+}
+
+.row{
+    display: flex;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+/* Add the missing right border to the last cell in every row */
+.cell:last-child {
+    border-right: 1px solid black;
+}
+
+/* Add the missing bottom border to every cell in the very last row */
+.row:last-child .cell {
+    border-bottom: 1px solid black;
+}
