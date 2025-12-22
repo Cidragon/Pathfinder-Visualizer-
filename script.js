@@ -11,6 +11,7 @@ let is_start_dragged = false
 let is_end_dragged = false
 let dragged_cell = null
 
+let time_per_step_ms = 50
 let columns = 20
 let rows = 20
 let start_points = [0,0]
@@ -167,12 +168,13 @@ function mouse_released_in_grid(event){
 
 function find_path(){
     set_selected_pathfinding_algorithm()
-
     switch (selected_pathfinding_algorithm){
-        case 'DFS': dfs()
-        case 'BFS':
-            pass
+        case 'dfs': dfs_direction(start_points[0], start_points[1])
+        case 'bfs': 
     }
+
+    console.log("start painting")
+    step_paint()
 }
 
 let visited = new Set()
@@ -227,11 +229,8 @@ function dfs_direction(x,y, direction = 0){
         let nextX = x + dx;
         let nextY = y + dy;
 
-        // Boundary check
         if (nextX >= 0 && nextX < grid[0].length && 
             nextY >= 0 && nextY < grid.length) {
-            
-            // Pass the current dirIndex to the next call to "stick" to it
             if (dfs_direction(nextX, nextY, dirIndex)) {
                 return true;
             }
@@ -243,7 +242,7 @@ function dfs_direction(x,y, direction = 0){
 }
 
 function paint_path(){
-    console.log(visited)
+    //console.log(visited)
     visited.forEach(value => {
         let point = value.split(SEPARATOR)
         let x = parseInt(point[0])
@@ -254,7 +253,7 @@ function paint_path(){
 
     visited = new Set()
     create_grid_divs()
-    console.log(grid)
+    //console.log(grid)
 }
 
 function point_to_string(x,y){
@@ -273,10 +272,30 @@ function set_selected_pathfinding_algorithm(){
     console.log(selected_pathfinding_algorithm)
 }
 
+function step_paint(){
+    let points = Array.from(visited)
+    index = 0
+    console.log(points)
+    setInterval(() => {
+        console.log("time")
+        let point = points[index]
+        index += 1
+        if(point){
+            console.log(point)
+            point = point.split(SEPARATOR)
+            let x = parseInt(point[0])
+            let y = parseInt(point[1])
+            grid[y][x] = PATH_POINT
+            console.log(grid)
+            create_grid_divs() 
+        }
+        
+    }, time_per_step_ms)
+}
 
 //generate_start_and_end_points()
 button_generate_maze()
 show_default_values()
 
-dfs_direction(start_points[0], start_points[1])
-paint_path()
+//dfs_direction(start_points[0], start_points[1])
+//step_paint()
