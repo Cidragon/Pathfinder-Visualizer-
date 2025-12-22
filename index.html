@@ -14,18 +14,19 @@
             <input type="text" size="10" id="columns"/>
             <label>Rows:</label>
             <input type="text" size="10" id="rows"/>
-            <button onclick="create_grid()">Change Grid</button>
+            <button onclick="button_generate_maze()">Change Grid</button>
         </div>
         <div class="pathfinder-selector">
             <div>
                 <label> DFS </label>
-                <input type="radio" name="pathfinder" id="dfs"/>
+                <input type="radio" name="pathfinder" value="dfs"/>
             </div>
             <div>
                 <label> BFS </label>
-                <input type="radio" name="pathfinder" id="bfs"/>
+                <input type="radio" name="pathfinder" value="bfs"/>
             </div>           
         </div>
+        <button onclick="find_path()">Solve!</button>
         <div id="grid-container"></div>
     </div>
     
